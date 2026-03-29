@@ -31,8 +31,14 @@ STEP 4: Install Python
   - Download from https://www.python.org/downloads/ and install
   - During install, make sure "Add Python to PATH" is ticked
 
-STEP 5: Install VS Code
-  - Download from https://code.visualstudio.com/download and install
+STEP 5: SCL011 Driver Installation Steps
+	1.	Go to driverscape.com/download/scl011-generic-contactless-reader
+	2.	Select Windows 10 64-bit and click Download
+	3.	Extract the downloaded ZIP (right-click → Extract All)
+	4.	Open the extracted folder
+	5.	Right-click scl0102k.inf → click Install
+	6.	Plug in your SCL011 reader
+	7.	Check Device Manager → Smart card readers to confirm it’s detected
 
 STEP 6: Install required Python packages
   - Open Command Prompt and run:
@@ -53,9 +59,7 @@ STEP 8: Start the certificate server
   - Leave this window open
 
 STEP 9: Start the NFC reader app
-  - Open a second Command Prompt in "cpp\Project1\x64\Debug" and run:
-    Project1.exe
-  - It will say "Waiting for NFC tap..." — leave this open
+  - Start the exe.
 
 --- On the Phone ---
 
