@@ -1,0 +1,93 @@
+=====================================================
+  SLDS FILE SIGNING SYSTEM — HOW TO USE
+=====================================================
+
+WHAT THIS DOES:
+  The Android app sends a file (e.g. a PDF) to the Windows PC
+  via NFC tap + Wi-Fi. The PC digitally signs it and sends it back.
+
+=====================================================
+  PART 1 — ANDROID PHONE SETUP  (do this once)
+=====================================================
+
+STEP 1: Install the app
+  - Copy "apk/app-debug.apk" to your phone and open it to install
+  - If prompted about unknown sources, allow it in Settings > Security
+
+STEP 2: Enable NFC
+  - Settings > Connections > NFC — turn it on
+
+STEP 3: Grant permissions
+  - Open the app and tap Allow for every permission it requests
+  - If it asks for "All files access", grant that too
+  - The app should show "NFC ready" when done
+
+=====================================================
+  PART 2 — WINDOWS PC SETUP  (do this once)
+=====================================================
+
+STEP 4: Install Python
+  - Download from https://www.python.org/downloads/ and install
+  - During install, make sure "Add Python to PATH" is ticked
+
+STEP 5: Install VS Code
+  - Download from https://code.visualstudio.com/download and install
+
+STEP 6: Install required Python packages
+  - Open Command Prompt and run:
+
+    pip install flask cryptography pyopenssl zeroconf pyhanko pyhanko-certvalidator reportlab Pillow pypdf
+
+STEP 7: Plug in the USB NFC reader
+
+=====================================================
+  PART 3 — USING THE SYSTEM  (every time)
+=====================================================
+
+--- On the PC (do these first) ---
+
+STEP 8: Start the certificate server
+  - Open Command Prompt in the "ca_server" folder and run:
+    python ca_server.py
+  - Leave this window open
+
+STEP 9: Start the signer
+  - Open a second Command Prompt in "pcsc\x64\Debug" and run:
+    pcsc.exe
+  - It will say "Waiting for NFC tap..." — leave this open
+
+--- On the Phone ---
+
+STEP 10: Select the file to sign
+  - Open the app, tap "Select File" and choose your PDF
+
+STEP 11: Tap the phone to the NFC reader
+  - Hold the back of the phone against the reader for a few seconds
+  - The rest happens automatically — the file transfers, gets signed,
+    and is sent back to the phone
+
+STEP 12: Find your signed file
+  - Phone: tap "Check Received Files" in the app (also in Downloads)
+  - PC: the signed PDF is saved to your Desktop
+
+=====================================================
+  TROUBLESHOOTING
+=====================================================
+
+NFC not working:
+  - Check NFC is enabled in phone settings
+
+"Waiting for NFC tap..." not responding:
+  - Unplug and replug the NFC reader
+
+"CA registration failed":
+  - Make sure ca_server.py is running (Step 8) before running pcsc.exe
+  - Phone and PC must be on the same Wi-Fi network
+
+App permissions issue:
+  - Settings > Apps > WiFi File Transfer > Permissions > enable all
+
+"pip not found" or "python not found":
+  - Reinstall Python with "Add Python to PATH" ticked
+
+=====================================================
